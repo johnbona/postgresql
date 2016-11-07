@@ -24,6 +24,9 @@ public final class Connection {
         }
         
         self.connection = PQconnectdb(connectionComponents.joined(separator: " "))
+        if !self.connected {
+            throw DatabaseError.cannotEstablishConnection(error)
+        }
     }
 
     public convenience init(host: String = "localhost", port: String = "5432", dbname: String, user: String, password: String) throws {
