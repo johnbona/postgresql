@@ -20,7 +20,9 @@ public final class Connection {
         var connectionComponents = [String]()
         
         for (key, value) in params {
-            connectionComponents.append("\(key)='\(value)'")
+            var v = value.replacingOccurrences(of: "'", with: "")
+            v = v.replacingOccurrences(of: "\\", with: "")
+            connectionComponents.append("\(key)='\(v)'")
         }
         
         self.connection = PQconnectdb(connectionComponents.joined(separator: " "))
@@ -29,8 +31,8 @@ public final class Connection {
         }
     }
 
-    public convenience init(host: String = "localhost", port: String = "5432", dbname: String, user: String, password: String) throws {
-        try self.init(params: ["host": host, "port": port, "dbname": dbname, "user": user, "password": password])
+    public convenience init(host: String = "localhost", port: Int = 5432, dbname: String, user: String, password: String) throws {
+        try self.init(params: ["host": host, "port": "\(port)", "dbname": dbname, "user": user, "password": password])
     }
 
     public func reset() throws {

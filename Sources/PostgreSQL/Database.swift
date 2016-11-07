@@ -23,7 +23,7 @@ public class Database {
     // MARK: - Properties
     
     private let host: String
-    private let port: String
+    private let port: Int
     private let dbname: String
     private let user: String
     private let password: String
@@ -39,7 +39,7 @@ public class Database {
     
     // MARK: - Init
 
-    public init(host: String = "localhost", port: String = "5432", dbname: String, user: String, password: String) {
+    public init(host: String = "localhost", port: Int = 5432, dbname: String, user: String, password: String) {
         self.host = host
         self.port = port
         self.dbname = dbname
